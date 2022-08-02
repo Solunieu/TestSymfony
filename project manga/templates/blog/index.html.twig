@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BlogController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+<div class="example-wrapper">
+    <h1>Hello {{ controller_name }}! ✅</h1>
+
+    This friendly message is coming from:
+    <ul>
+        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/symfony/project manga/src/Controller/BlogController.php'|file_link(0) }}">src/Controller/BlogController.php</a></code></li>
+        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/symfony/project manga/templates/blog/index.html.twig'|file_link(0) }}">templates/blog/index.html.twig</a></code></li>
+    </ul>
+</div>
+{# <h2>Une liste</h2>
+<ul>
+  {% for fruit in fruits %}
+        <li>{{ fruit }}</li>
+    {% endfor %}
+</ul> #}
+<ul>
+  {% for fruit in fruits %}
+    {% if fruit == 'banana' %}
+    <li>Banana, my favorite</li>
+    {% elseif fruit == 'watermelon'%}
+    <li>watermelon, beurk !</li>
+    {% else %}
+    Sinon:
+    <li>{{ fruit }} </li>
+    {% endif %}
+  {% endfor %}
+</ul>
+{% endblock %}

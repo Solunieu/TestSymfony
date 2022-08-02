@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Netflix - Connexion{% endblock %}
+
+{% block body %}
+<div class="container">
+        <h1>S'identifier</h1>
+        {% if erreur %}
+                <div class="erreur">{{erreur.messageKey|trans(erreur.messageData, 'security')}}</div>
+        {% endif %}
+        <form action="{{ path('connexion') }}" method="post" novalidate>
+        	<input type="text" id="username" name="_username" value="{{ adresse_mail }}" placeholder="Votre adresse mail" />
+        	<input type="password" id="password" name="_password" placeholder="Votre mot de passe" />
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        	<button type="submit">S'identifier</button>
+            <input type="checkbox" class="checkbox" name="_remember_me"> Se souvenir de moi
+    	</form>
+        <p class="grey">Première visite sur Netflix ? <a href="inscription">Inscrivez-vous</a>.</p>
+</div>
+{% endblock %}

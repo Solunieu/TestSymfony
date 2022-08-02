@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Netflix - Administration{% endblock %}
+
+{% block body %}
+<div class="admin_container">
+	<h1>Gestion des films</h1>
+	<h2>Ajouter un film</h2>
+	<div class="container">
+		{{ form(formulaire) }}
+	</div>
+	<h2>Liste des films disponibles Netflix</h2>
+	<table>
+		<thead>
+			<th>Titre</th>
+			<th>Synopsis</th>
+			<th>Acteurs principaux</th>
+			<th>Actions</th>
+		</thead>
+		<tbody>
+		{%for film in films %}
+			<tr>
+				<td><img class="affiche" src="films/{{ film.titre }}"></td>
+				<td>{{ film.synopsis }}</td>
+				<td>{{ film.acteurPrincipal }}</td>
+				<td>
+					<button class="bouton_admin" type="button" onclick="window.location.href='{{ app.request.getBaseURL() }}/admin/modifierFilm?film={{ film.id }}'">Modifier</button>
+					<button class="bouton_admin" type="button" onclick="window.location.href='{{ app.request.getBaseURL() }}?supprimerFilm={{ film.id }}'">Supprimer</button>
+				</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+</div>
+<div class="admin_container">
+	<h1>Gestion des utilisateurs</h1>
+	<h2>Liste des utilisateurs enregistrés</h2>
+	<table>
+		<thead>
+			<th>Avatar</th>
+			<th>Pseudo</th>
+			<th>Adresse mail</th>
+			<th>Droits attribuées</th>
+			<th>Actions</th>
+		</thead>
+		<tbody>
+		{% for utilisateur in utilisateurs %}
+			<tr>
+				<td>
+					<div class="avatar">
+					{% if utilisateur.avatar %}
+						<img class="avatar" src="{{ app.request.getBaseURL() }}/avatars/{{ utilisateur.avatar }}">
+					{% else %}
+						<img class="avatar" src="{{ app.request.getBaseURL() }}/../assets/images/default_avatar.jpg">
+					{% endif %}
+					</div>
+				</td>
+				<td>{{ utilisateur.pseudo }}</td>
+				<td>{{ utilisateur.email }}</td>
+				<td>
+					{% for role in utilisateur.roles %}
+						{% if role == "ROLE_ADMIN" %}
+							Administrateur
+						{% elseif role == "ROLE_USER" %}
+							Utilisateur
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					<button class="bouton_admin" type="button" onclick="window.location.href='{{ app.request.getBaseURL() }}/admin/reinitialiserMDP?utilisateurId={{ utilisateur.id }}'">Réinitialiser mot de passe</button>
+					<button class="bouton_admin" type="button" onclick="window.location.href='{{ app.request.getBaseURL() }}/admin/modifierUtilisateur?utilisateurId={{ utilisateur.id }}'">Modifier</button>
+					<button class="bouton_admin" type="button" onclick="window.location.href='{{ app.request.getBaseURL() }}?supprimerUtilisateur={{ utilisateur.id }}'">Supprimer</button>
+				</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% endblock %}

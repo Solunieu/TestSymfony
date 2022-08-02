@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Netflix{% endblock %}</title>
+		<link rel="icon" type="image/pngn" href="{{ app.request.getBaseURL() }}/../assets/images/favicon.png">
+        <link rel="stylesheet" href="{{ app.request.getBaseURL() }}/../assets/styles/app.css">
+    </head>
+    <body>
+		<header>
+			<ul id="barre_navigation">
+				<li id="logo">
+					<a href="{{ app.request.getBaseURL() }}/">
+						<img src="{{ app.request.getBaseURL() }}/../assets/images/logo.png" alt="Netflix">
+					</a>
+				</li>
+				{% if app.user %}
+				<li id="deconnexion">
+					<a href="{{ app.request.getBaseURL() }}/deconnexion">
+						<img src="{{ app.request.getBaseURL() }}/../assets/images/logout.png">
+					</a>
+				</li>
+				<li id="profil">
+					<a href="{{ app.request.getBaseURL() }}/profil">
+						{% if app.user.getAvatar %}
+						<img src="{{ app.request.getBaseURL() }}/avatars/{{ app.user.getAvatar }}">
+						{% else %}
+						<img src="{{ app.request.getBaseURL() }}/../assets/images/default_avatar.jpg">
+						{% endif %}
+					</a>
+				</li>
+					{% if is_granted("ROLE_ADMIN") %}
+					<li id="admin">
+						<a href="{{ app.request.getBaseURL() }}/admin">
+							<img src="{{ app.request.getBaseURL() }}/../assets/images/admin.png">
+						</a>
+					</li>
+					{% endif %}
+				{% endif %}
+			</ul>
+		</header>
+		<section>
+        {% block body %}
+		{% endblock %}
+		</section>
+		<footer>
+			<p>Des questions ? Appelez le 0800 917 813</p>
+			<a href="#">Conditions des cartes cadeaux</a>
+			<a href="#">Conditions d'utilisation</a>
+			<a href="#">Déclaration de confidentialité</a>
+		</footer>
+    </body>
+</html>

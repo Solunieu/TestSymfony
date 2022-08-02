@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Netflix - Accueil{% endblock %}
+
+{% block body %}
+<div class="accueil_container">
+	<h2>Vos films favoris</h2>
+	{% if favoris %}
+		<div class="liste_films">
+			{% for favori in favoris %}
+				<div class="carte">
+					<img class="affiche" src="films/{{ favori.titre }}" onclick="window.location.href='?supprimerFavori={{ favori.id }}'">
+					<div>
+						<p>Synopsis :</p>
+						<p>{{ favori.synopsis }}</p>
+					</div>
+					<div>
+						<p>Acteurs principaux :</p>
+						<p>{{ favori.acteur_principal }}</p>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	{% else %}
+		<p>Vous n'avez pas de film favori</p>
+	{% endif %}
+</div>
+<div class="accueil_container">
+	<h2>Liste des films disponibles Netflix</h2>
+	<div class="liste_films">
+		{% for film in films %}
+			<div class="carte">
+				<img class="affiche" src="films/{{ film.titre }}" onclick="window.location.href='?ajouterFavori={{ film.id }}'">
+				<div>
+					<p>Synopsis :</p>
+					<p>{{ film.synopsis }}</p>
+				</div>
+				<div>
+					<p>Acteurs principaux :</p>
+					<p>{{ film.acteurPrincipal }}</p>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Netflix - Modifier Utilisateur{% endblock %}
+
+{% block body %}
+<div class="container">
+	<h1>Modifier le profil de l'utilisateur {{ utilisateur.pseudo }}</h1>
+	{{ form_start(formulaire,{'attr':{'novalidate': 'novalidate'}}) }}
+		<div class="avatar">
+			{% if utilisateur.getAvatar %}
+			<img src="{{ app.request.getBaseURL() }}/avatars/{{ utilisateur.getAvatar }}">
+			{% else %}
+			<img src="{{ app.request.getBaseURL() }}/../assets/images/default_avatar.jpg">
+			{% endif %}
+		</div>
+		{{ form_row(formulaire.avatar) }}
+		{{ form_row(formulaire.email,{'attr':{'value':utilisateur.getEmail}}) }}
+		{% if utilisateur.getPseudo %}
+			{{ form_row(formulaire.pseudo, {'attr':{'value':utilisateur.getPseudo}}) }}
+		{% else %}
+			{{ form_row(formulaire.pseudo) }}
+		{% endif %}
+		<input type="checkbox" class="checkbox" name="roles" {% for role in utilisateur.roles %}
+			{% if role == "ROLE_ADMIN" %}
+				checked
+				{% set break = true %}
+			{% endif %}
+		{% endfor %}/>Accès Administrateur
+		{{ form_row(formulaire.submit) }}
+	{{ form_end(formulaire) }}
+</div>
+{% endblock %}

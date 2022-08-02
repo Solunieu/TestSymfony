@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Netflix - Mon profil{% endblock %}
+
+{% block body %}
+<div class="container">
+	<h1>Modifier votre profil</h1>
+	{{ form_start(formulaire,{'attr':{'novalidate': 'novalidate'}}) }}
+		<div class="avatar">
+			{% if app.user.getAvatar %}
+			<img src="{{ app.request.getBaseURL() }}/avatars/{{ app.user.getAvatar }}">
+			{% else %}
+			<img src="{{ app.request.getBaseURL() }}/../assets/images/default_avatar.jpg">
+			{% endif %}
+		</div>
+		{{ form_row(formulaire.avatar) }}
+		{{ form_row(formulaire.email,{'attr':{'value':app.user.getEmail}}) }}
+		{% if app.user.getPseudo %}
+			{{ form_row(formulaire.pseudo, {'attr':{'value':app.user.getPseudo}}) }}
+		{% else %}
+			{{ form_row(formulaire.pseudo) }}
+		{% endif %}
+		{{ form_row(formulaire.submit) }}
+	{{ form_end(formulaire) }}
+</div>
+{% endblock %}

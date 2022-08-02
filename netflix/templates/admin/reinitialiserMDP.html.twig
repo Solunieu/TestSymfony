@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Netflix - Réinitialiser mot de passe{% endblock %}
+
+{% block body %}
+<div class="container">
+	<h1>Réinitialiser le mot de passe de l'utilisateur {{ utilisateur.pseudo }}</h1>
+	{{ form_errors(formulaire) }}
+	{{ form_start(formulaire, {attr: {'novalidate':'novalidate'}}) }}
+		{{ form_row(formulaire.email) }}
+    	{{ form_row(formulaire.plainPassword) }}
+    	{{ form_row(formulaire.verification) }}
+    	<button type="submit">Changer le mot de passe</button>
+    {{ form_end(formulaire) }}
+</div>
+{% endblock %}

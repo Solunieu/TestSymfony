@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Netflix - Modifier Film{% endblock %}
+
+{% block body %}
+<div class="admin_container">
+	<h1>Modifier le film</h1>
+	{{ form_start(formulaire,{'attr':{'novalidate': 'novalidate'}}) }}
+		<div>
+			<img class="affiche" src="{{ app.request.getBaseURL() }}/films/{{ film.getTitre }}">
+		</div>
+		{{ form_row(formulaire.titre) }}
+		{{ form_row(formulaire.synopsis) }}
+		{{ form_row(formulaire.acteur_principal) }}
+		{{ form_row(formulaire.submit,{'label':'Modifier le film'}) }}
+	{{ form_end(formulaire) }}
+</div>
+{% endblock %}
